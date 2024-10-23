@@ -18,15 +18,14 @@ const VideoCard = (props: VideoCardProps) => {
     <>
       <div className={`flex ${flexDirection} overflow-hidden gap-2`}>
         <div className={`${imageSize} relative`}>
-          <img src={thumbnail} />
-          {/* <Image
+          <Image
             src={thumbnail}
             priority={true}
             alt="Video Thumbnail"
             fill={true}
             sizes="100%"
             className="object-cover rounded-lg"
-          /> */}
+          />
         </div>
       </div>
       <h3 className="text-lg font-semibold text-primary">{title}</h3>

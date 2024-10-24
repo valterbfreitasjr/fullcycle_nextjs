@@ -13,7 +13,7 @@ async function getVideo(id: string): Promise<Video> {
   return response.json();
 }
 
-export async function VideoDetail({ id }: { id: string }) {
+export async function VideoDetail({ id }: Readonly<{ id: string }>) {
   const video = await getVideo(id);
   return (
     <div>

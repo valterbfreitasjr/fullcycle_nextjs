@@ -1,23 +1,34 @@
-import { Video } from "@/app/models";
+import { VideoPlayer } from "@/app/components/VideoPlayer";
+import { Suspense } from "react";
+import { VideoDetail } from "./VideoDetails";
+import { after } from "node:test";
 
-const getVideos = async (id: string): Promise<Video[]> => {
-  const response = await fetch(`http://localhost:8000/videos/${id}`, {
-    // cache: "no-cache";
-    next: {
-      revalidate: 10,
-    },
-  });
+const sleep = (time: number) =>
+  new Promise((resolve) => setTimeout(resolve, time));
 
-  return response.json();
-};
+async function incrementViews(id: string) {
+  await sleep(2000);
+  // await fetch(`http://localhost:8000/videos/${id}/views`, {
+  //   method: 'POST',
+  // });
+}
 
 const VideoPlayPage = async ({ params }: { params: { id: string } }) => {
-  const video = await getVideos(params.id);
+  after(async () => {
+    await incrementViews(params.id);
+  });
+
+  // await incrementViews(params.id);
   return (
     <div>
-      <h1 className="text-primary">Play do Video</h1>
-      <p className="text-primary">Id: {params.id}</p>
-      <p className="text-primary">Title: {video.title}</p>
+      <VideoPlayer />
+      <Suspense fallback={<div>loading...</div>}>
+        <VideoDetail id={params.id} />
+      </Suspense>
+      <Suspense fallback={<div>loading...</div>}>
+        {/* <p className="text-primary">1000 views</p> */}
+        {/* <VideoViews/> */}
+      </Suspense>
     </div>
   );
 };

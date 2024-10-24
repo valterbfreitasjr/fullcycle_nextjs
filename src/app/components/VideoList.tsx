@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Video } from "../models";
 import VideoCard from "./VideoCard";
 
-// const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const getVideos = async (): Promise<Video[]> => {
-  // await sleep(5000);
+  await sleep(3000);
   const response = await fetch("http://localhost:8000/videos");
   return response.json();
 };
